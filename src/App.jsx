@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Sidebar } from "./components/shared/Sidebar";
-import { RiMenuFill, RiUser3Line, RiPieChartLine, RiAddLine } from "react-icons/ri";
+import { RiMenuFill, RiUser3Line, RiPieChartLine, RiAddLine, RiCloseLine } from "react-icons/ri";
 
 export const App = () => {
 
@@ -27,8 +27,8 @@ export const App = () => {
         <button className="p-2">
           <RiPieChartLine />
         </button>
-        <button onClick={toggleMenu} className="text-white bg-[#EC7C6A] p-2">
-          <RiMenuFill />
+        <button onClick={toggleMenu} className="text-white p-2">
+          { showMenu ? <RiCloseLine/> : <RiMenuFill />}
         </button>
 
       </nav>
