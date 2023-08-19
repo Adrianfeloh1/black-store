@@ -1,16 +1,17 @@
-
 import { useState } from "react";
-import { Sidebar } from "./components/shared/Sidebar";
+
 import {
   RiMenuFill,
   RiUser3Line,
   RiPieChartLine,
   RiAddLine,
   RiCloseLine,
-  RiSearchLine,
   RiArrowDownSLine,
-  RiDeleteBin6Line
 } from "react-icons/ri";
+
+import { Header } from "./components/shared/Header";
+import { Car } from "./components/shared/Car";
+import { Sidebar } from "./components/shared/Sidebar";
 
 export const App = () => {
 
@@ -19,11 +20,18 @@ export const App = () => {
 
   const toggleMenu = () => {
     setShowMenu(!showMenu)
+
+  }
+
+  const toggleOrder = () => {
+    setShowOrder(!showOrder)
+    setShowMenu(false)
   }
 
   return (
     <div className="bg-[#262837] w-full min-h-screen">
       <Sidebar showMenu={showMenu} />
+      <Car showOrder={showOrder} setShowOrder={setShowOrder} />
       {/* menu mobile */}
       <nav className="bg-[#1F1D2B] lg:hidden fixed w-full bottom-0 left-0 text-3xl text-gray-500
        py-4 px-8 flex items-center justify-between rounded-tl-xl rounded-tr-xl">
@@ -33,44 +41,18 @@ export const App = () => {
         <button className="p-2">
           <RiAddLine />
         </button>
-        <button className="p-2">
+        <button onClick={toggleOrder} className="p-2">
           <RiPieChartLine />
         </button>
         <button onClick={toggleMenu} className="text-white p-2">
           {showMenu ? <RiCloseLine /> : <RiMenuFill />}
         </button>
-
       </nav>
-      <main className="lg:pl-32 grid grid-cols-1 lg:grid-cols-8 p-4 pb-32">
-        <div className=" lg:col-span-6 md:p-8">
-          {/* Header */}
-          <header className="">
-            {/* Title and search */}
-            <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
-              <div>
-                <h1 className="text-2xl text-gray-300">Jeager Resto</h1>
-                <p className="text-gray-500">20 de agosto 2023</p>
-              </div>
-              <form action="">
-                <div className="w-full relative">
-                  <RiSearchLine className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-300 text-2xl" />
-                  <input type="text" className="bg-[#1F1D2B] w-full py-2 pl-10 pr-4 rounded-lg
-                 text-gray-300 outline-none"
-                    placeholder="Search"
-                  />
-                </div>
-              </form>
-            </div>
-            {/* Menu */}
-            <nav className="text-gray-300 flex items-center justify-between border-b my-6
-            md:justify-start md:gap-8">
-              <a href="#" className="relative py-2 pr-4 before:w-1/2 before:h-[2px] before:absolute before:bg-[#EC7C6A]
-              before:left-0 before:rounded-full before:-bottom-[1px] text-[#EC7C6A]">Hot Dishes</a>
-              <a href="#" className="py-2 pr-4">Cold Dishes</a>
-              <a href="#" className="py-2 pr-4">soup</a>
-              <a href="#" className="py-2 pr-4">Gill</a>
-            </nav>
-          </header>
+      <main className="lg:pl-32 lg:pr-96 pb-20">
+        <div className="md:p-8 p-4">
+
+          <Header />
+
           {/* Title Content */}
           <div className="flex items-center justify-between mb-16">
             <h2 className="text-xl text-gray-300">Choose Dishes</h2>
@@ -145,87 +127,6 @@ export const App = () => {
 
               <p className="">$2.29</p>
               <p className="text-gray-500">20 Bowls available</p>
-            </div>
-
-          </div>
-        </div>
-        {/* Shopping Cart */}
-        <div className="bg-[#1F1D2B] fixed right-0 top-0 w-full lg:static lg:col-span-2 h-full">
-          {/* Orders */}
-          <div className="relative pt-16 text-gray-300 p-8 h-full">
-            <RiCloseLine className="absolute left-4 top-4 p-3 box-content text-gray-300
-             bg-[#262837] rounded-full text-xl"/>
-            <h1 className="text-2xl my-4 mt-4">Orders #151416</h1>
-            {/* Pills */}
-            <div className="flex items-center gap-4 flex-wrap mb-8">
-              <button className="bg-[#EC7C6A] text-white py-2 px-4 rounded-xl">
-                Dine in
-              </button>
-              <button className=" text-[#EC7C6A] py-2 px-4 rounded-xl border border-gray-500">
-                To Go
-              </button>
-              <button className=" text-[#EC7C6A] py-2 px-4 rounded-xl border border-gray-500">
-                Delivery
-              </button>
-            </div>
-            {/* Car */}
-            <div>
-              <div className="grid grid-cols-6 mb-4 p-4">
-                <h5 className="col-span-4">Item</h5>
-                <h5>Qty</h5>
-                <h5>Price</h5>
-              </div>
-              {/* Product */}
-              <div className="bg-[#262837] p-4 rounded-xl">
-                <div className="grid grid-cols-6 mb-4">
-                  {/* Product Description */}
-                  <div className=" col-span-4 flex items-center gap-3">
-                    <img src="plato1.png" alt="plato1 img" className="w-10 h-10 object-cover" />
-                    <div>
-                      <h5 className="text-sm">Speacy seaso...</h5>
-                      <p className="text-xs text-gray-500">$2.29</p>
-                    </div>
-                  </div>
-                  {/* QTY */}
-                  <div>
-                    <span>2</span>
-                  </div>
-                  {/* Price */}
-                  <div>
-                    <span>$4.58</span>
-                  </div>
-                </div>
-                {/* Note */}
-                <div className="grid grid-cols-6 items-center">
-                  <form className="col-span-5">
-                    <input
-                      type="text"
-                      className="bg-[#1F1D2B] py-2 px-4 rounded-lg outline-none"
-                      placeholder="Order note..." />
-                  </form>
-                  <div>
-                    <button className="border border-red-600 p-2 rounded-lg">
-                      <RiDeleteBin6Line className="text-red-600" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Submit payment */}
-            <div className="bg-[#262837] w-full p-4 absolute bottom-0 left-0">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-gray-400">Discount</span>
-                <span>$0</span>
-              </div>
-              <div className="flex items-center justify-between mb-6">
-                <span className="text-gray-400">Sub total</span>
-                <span>$21.03</span>
-              </div>
-              <div>
-                <button className="bg-[#EC7C6A] w-full py-2 px-4 rounded-lg">
-                  Continue to payment
-                </button>
-              </div>
             </div>
 
           </div>
